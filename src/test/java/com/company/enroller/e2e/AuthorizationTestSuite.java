@@ -30,22 +30,56 @@ public class AuthorizationTestSuite {
 
 	@Test
 	public void SmokeTest() throws Exception {
-		 assertEquals("System do zapisów na zajęcia", driver.findElement(By.xpath("//div[@id='app']/h1")).getText());
+		assertEquals("System do zapisów na zajęcia", driver.findElement(By.xpath("//div[@id='app']/h1")).getText());
 	}
-	
+
 	@Test
 	public void LoginInAndOut() throws Exception {
-		fail("Not implemented yet!");
+		driver.get("http://localhost:8088/");
+		driver.findElement(By.xpath("//input[@type='text']")).clear();
+		driver.findElement(By.xpath("//input[@type='text']")).sendKeys("michal");
+		driver.findElement(By.xpath("//input[@type='password']")).clear();
+		driver.findElement(By.xpath("//input[@type='password']")).sendKeys("tomek");
+		driver.findElement(By.xpath("//button[@type='submit']")).click();
+		driver.findElement(By.linkText("WYLOGUJ")).click();
 	}
 
 	@Test
 	public void RegisterNewUser() throws Exception {
-		fail("Not implemented yet!");
+	    driver.get("http://localhost:8088/");
+	    driver.findElement(By.xpath("//div[@id='app']/div/button[2]")).click();
+	    driver.findElement(By.xpath("//input[@type='text']")).click();
+	    driver.findElement(By.xpath("//input[@type='text']")).clear();
+	    driver.findElement(By.xpath("//input[@type='text']")).sendKeys("michal");
+	    driver.findElement(By.xpath("//input[@type='password']")).clear();
+	    driver.findElement(By.xpath("//input[@type='password']")).sendKeys("tomek");
+	    driver.findElement(By.xpath("//button[@type='submit']")).click();
+	    driver.findElement(By.xpath("//div[@id='app']/div/div")).click();
+	    assertEquals("Konto zostało założone. Możesz się zalogować.", driver.findElement(By.xpath("//div[@id='app']/div/div")).getText());
 	}
 
 	@Test
 	public void RegisterExistingUser() throws Exception {
-		fail("Not implemented yet!");
+		driver.get("http://localhost:8088/");
+		driver.findElement(By.xpath("//div[@id='app']/div/button[2]")).click();
+		driver.findElement(By.xpath("//input[@type='text']")).click();
+		driver.findElement(By.xpath("//input[@type='text']")).clear();
+		driver.findElement(By.xpath("//input[@type='text']")).sendKeys("michal");
+		driver.findElement(By.xpath("//input[@type='password']")).clear();
+		driver.findElement(By.xpath("//input[@type='password']")).sendKeys("tomek");
+		driver.findElement(By.xpath("//button[@type='submit']")).click();
+		assertEquals("Błąd przy zakładaniu konta. Kod odpowiedzi: 409",
+				driver.findElement(By.xpath("//div[@id='app']/div/div")).getText());
+	}
+
+	@Test
+	public void LoginUnexistingUser() throws Exception {
+		driver.get("http://localhost:8088/");
+		driver.findElement(By.xpath("//input[@type='text']")).click();
+		driver.findElement(By.xpath("//input[@type='text']")).clear();
+		driver.findElement(By.xpath("//input[@type='text']")).sendKeys("michal1");
+		driver.findElement(By.xpath("//button[@type='submit']")).click();
+		assertEquals("Logowanie nieudane.", driver.findElement(By.xpath("//div[@id='app']/div/div")).getText());
 	}
 
 	@After
