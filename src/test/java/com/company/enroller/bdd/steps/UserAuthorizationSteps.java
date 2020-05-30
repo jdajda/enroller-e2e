@@ -52,10 +52,7 @@ public class UserAuthorizationSteps {
 
     @When("^user clicks \"([^\"]*)\" button$")
     public void user_clicks_button(String buttonText) throws Throwable {
-    	//span[contains(text(),'New')]
     	driver.findElement(By.xpath("//button[@type='submit' and contains(., '"+buttonText+"')]")).click();
-    	//driver.findElement(By.xpath("//span[contains(text(),'"+ buttonText +"')]")).click();
-    	//driver.findElement(By.xpath("//button[@value=\""+buttonText+"\"]")).click();
     }
     
     @When("^user clicks \"([^\"]*)\" element$")
